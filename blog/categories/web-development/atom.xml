@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | Jeremy Sutton - Developer and Engineer]]></title>
   <link href="http://suttonj.github.io/blog/categories/web-development/atom.xml" rel="self"/>
   <link href="http://suttonj.github.io/"/>
-  <updated>2014-03-08T00:44:29-05:00</updated>
+  <updated>2014-03-08T00:46:26-05:00</updated>
   <id>http://suttonj.github.io/</id>
   <author>
     <name><![CDATA[Jeremy S Sutton]]></name>
@@ -89,11 +89,7 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;&lt;</span><span class="nt">pre</span> <span class="nt">class</span><span class="o">=</span><span class="s2">&quot;lang:default decode:true &quot;</span><span class="o">&gt;&amp;</span><span class="nt">hellip</span><span class="o">;</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">&amp;</span><span class="nt">hellip</span><span class="o">;</span>
 </span><span class='line'> <span class="o">&lt;</span><span class="nt">em</span><span class="o">&gt;=</span> <span class="nt">require_self</span>
 </span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;=</span> <span class="nt">require_tree</span> <span class="o">.</span>
 </span><span class='line'> <span class="o">&lt;</span><span class="nt">em</span><span class="o">&gt;=</span> <span class="nt">require</span> <span class="nt">bootstrap</span>
@@ -123,13 +119,17 @@
 </span><span class='line'><span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Update your gems to add Bootstrap to the pipeline:
-<pre class="lang:default decode:true">bundle install
-</pre>
-Now that we have all the UI components in place, we can create our main controller:
-<pre class="lang:default decode:true">rails generate controller Main index
-</pre>
-Add the root folder to the routes.rb file to redirect to the main controller:</p>
+<p>Update your gems to add Bootstrap to the pipeline:</p>
+
+<pre>$ bundle install</pre>
+
+
+<p>Now that we have all the UI components in place, we can create our main controller:</p>
+
+<pre>$ rails generate controller Main index</pre>
+
+
+<p>Add the root folder to the routes.rb file to redirect to the main controller:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/config/routes.rb </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -147,11 +147,14 @@ Run the rails server and make sure everything is working smoothly.</p>
 
 <p>In this tutorial, we&rsquo;ll use the generally accepted structure of having folders for services, filters, controllers, and directives.</p>
 
-<p>Your folder structure should look like this:
+<p>Your folder structure should look like this:</p>
+
 <p>
 <img src="http://i.imgur.com/5juLUo2.png" alt="Javascript directory structure" />
 </p>
-If you want to know more about how to structure your directory for app growth and scaling, as well as general styling guidelines for Angular, you can <a href="https://github.com/mgechev/angularjs-style-guide"> read this informative guide on github.</a></p>
+
+
+<p>If you want to know more about how to structure your directory for app growth and scaling, as well as general styling guidelines for Angular, you can <a href="https://github.com/mgechev/angularjs-style-guide"> read this informative guide on github.</a></p>
 
 <p>We can test out our folder structure by creating basic controller for the main view app:</p>
 
@@ -193,8 +196,16 @@ If you want to know more about how to structure your directory for app growth an
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&#39;text-center&#39;</span><span class="nt">&gt;</span>Social Miner AngularJS+Rails App<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span> <span class="na">ng-controller=</span><span class="s">&quot;MainCtrl&quot;</span><span class="nt">&gt;</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&#39;text-center&#39;</span><span class="nt">&gt;</span>Social Miner AngularJS+Rails App<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span> <span class="na">ng-controller=</span><span class="s">&quot;MainCtrl&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&quot;text-center&quot;</span><span class="err">&amp;</span><span class="na">gt</span><span class="err">;</span><span class="na">My</span> <span class="na">blog</span><span class="err">&lt;/</span><span class="na">h1</span><span class="nt">&gt;</span>
 </span><span class='line'> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span> <span class="na">ng-repeat=</span><span class="s">&quot;post in data.posts&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
 </span><span class='line'>

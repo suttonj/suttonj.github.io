@@ -4,7 +4,7 @@
   <title><![CDATA[Jeremy Sutton - Developer and Engineer]]></title>
   <link href="http://suttonj.github.io/atom.xml" rel="self"/>
   <link href="http://suttonj.github.io/"/>
-  <updated>2014-03-08T00:44:29-05:00</updated>
+  <updated>2014-03-08T00:46:26-05:00</updated>
   <id>http://suttonj.github.io/</id>
   <author>
     <name><![CDATA[Jeremy S Sutton]]></name>
@@ -90,7 +90,7 @@
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">&lt;</span><span class="nt">pre</span> <span class="nt">class</span><span class="o">=</span><span class="s2">&quot;lang:default decode:true &quot;</span><span class="o">&gt;...</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">...</span>
 </span><span class='line'> <span class="o">*=</span> <span class="nt">require_self</span>
 </span><span class='line'> <span class="o">*=</span> <span class="nt">require_tree</span> <span class="o">.</span>
 </span><span class='line'> <span class="o">*=</span> <span class="nt">require</span> <span class="nt">bootstrap</span>
@@ -122,14 +122,12 @@
 
 <p>Update your gems to add Bootstrap to the pipeline:</p>
 
-<pre class="lang:default decode:true">bundle install
-</pre>
+<pre>$ bundle install</pre>
 
 
 <p>Now that we have all the UI components in place, we can create our main controller:</p>
 
-<pre class="lang:default decode:true">rails generate controller Main index
-</pre>
+<pre>$ rails generate controller Main index</pre>
 
 
 <p>Add the root folder to the routes.rb file to redirect to the main controller:</p>
