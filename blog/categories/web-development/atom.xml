@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | Jeremy Sutton - Developer and Engineer]]></title>
   <link href="http://suttonj.github.io/blog/categories/web-development/atom.xml" rel="self"/>
   <link href="http://suttonj.github.io/"/>
-  <updated>2014-03-08T00:34:29-05:00</updated>
+  <updated>2014-03-08T00:35:21-05:00</updated>
   <id>http://suttonj.github.io/</id>
   <author>
     <name><![CDATA[Jeremy S Sutton]]></name>
@@ -135,8 +135,8 @@ Run the rails server and make sure everything is working smoothly.</p>
 <p>In this tutorial, we&rsquo;ll use the generally accepted structure of having folders for services, filters, controllers, and directives.</p>
 
 <p>Your folder structure should look like this:
-<br>
-<p><img src="http://i.imgur.com/5juLUo2.png" alt="Javascript directory structure" />
+<p>
+<img src="http://i.imgur.com/5juLUo2.png" alt="Javascript directory structure" />
 </p>
 If you want to know more about how to structure your directory for app growth and scaling, as well as general styling guidelines for Angular, you can <a href="https://github.com/mgechev/angularjs-style-guide"> read this informative guide on github.</a></p>
 
