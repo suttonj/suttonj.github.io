@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | Jeremy Sutton - Developer and Engineer]]></title>
   <link href="http://suttonj.github.io/blog/categories/web-development/atom.xml" rel="self"/>
   <link href="http://suttonj.github.io/"/>
-  <updated>2014-03-08T00:40:05-05:00</updated>
+  <updated>2014-03-08T00:44:29-05:00</updated>
   <id>http://suttonj.github.io/</id>
   <author>
     <name><![CDATA[Jeremy S Sutton]]></name>
@@ -104,9 +104,10 @@
 </span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Head over to the <code>app/assets/javascripts/application.js</code> folder and add Underscore.js, Angular, and Bootstrap to the Sprockets declarations:</p>
+<p>Head over to the <code>app/assets/javascripts</code> folder and add Underscore.js, Angular, and Bootstrap to the Sprockets declarations in the <code>application.js</code> file:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/javascripts/application.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -123,14 +124,21 @@
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Update your gems to add Bootstrap to the pipeline:
-<pre>bundle install
+<pre class="lang:default decode:true">bundle install
 </pre>
 Now that we have all the UI components in place, we can create our main controller:
-<pre>$ rails generate controller Main index
+<pre class="lang:default decode:true">rails generate controller Main index
 </pre>
-Add the root folder to the routes.rb file to redirect to the main controller:
-<pre>root :to =&gt; &lsquo;main#index&rsquo;
-</pre>
+Add the root folder to the routes.rb file to redirect to the main controller:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/config/routes.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span>
+</span><span class='line'><span class="n">root</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">main</span><span class="c1">#index&amp;rsquo;</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 Run the rails server and make sure everything is working smoothly.</p>
 
 <p><strong>Setting up Angular</strong></p>
@@ -147,8 +155,8 @@ If you want to know more about how to structure your directory for app growth an
 
 <p>We can test out our folder structure by creating basic controller for the main view app:</p>
 
-<p><code>app/assets/javascripts/controllers/MainCtrl.js.coffee</code>
-<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/javascripts/controllers/MainCtrl.js.coffee</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -158,7 +166,7 @@ If you want to know more about how to structure your directory for app growth an
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="vi">@MainCtrl = </span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="o">&amp;</span><span class="nx">ndash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="vi">@MainCtrl = </span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="o">&amp;</span><span class="nx">ndash</span><span class="p">;</span><span class="o">&gt;&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$scope.data = </span>
 </span><span class='line'>    <span class="nv">posts: </span><span class="p">[</span>
@@ -174,8 +182,7 @@ If you want to know more about how to structure your directory for app growth an
 
 <p>I&rsquo;m using some placeholder data for now while we get the app up and running. The view for this controller, which is also the main view, will look like this:</p>
 
-<p><code>app/assets/views/main/index.html</code>
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/views/main/index.html </span></figcaption>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/views/main/index.html </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -200,8 +207,8 @@ If you want to know more about how to structure your directory for app growth an
 
 <p>We also want to create the module that will be our main application module, which will we declare in our javascripts folder:</p>
 
-<p><code>app/assets/javascripts/main.js.coffee</code>
-<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/javascripts/main.js.coffee </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -231,8 +238,8 @@ If you want to know more about how to structure your directory for app growth an
 
 <p>Our main application module is named &lsquo;Miner&rsquo;. Now we need to specift the <code>ng-app</code> directive in our main application template:</p>
 
-<p><code>app/views/layout/application.html.erb</code>
-<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/views/layout/application.html.erb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>

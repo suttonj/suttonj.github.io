@@ -159,9 +159,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Head over to the <code>app/assets/javascripts/application.js</code> folder and add Underscore.js, Angular, and Bootstrap to the Sprockets declarations:</p>
+<p>Head over to the <code>app/assets/javascripts</code> folder and add Underscore.js, Angular, and Bootstrap to the Sprockets declarations in the <code>application.js</code> file:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>app/assets/javascripts/application.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -180,20 +181,26 @@
 
 <p>Update your gems to add Bootstrap to the pipeline:</p>
 
-<pre>bundle install
+<pre class="lang:default decode:true">bundle install
 </pre>
 
 
 <p>Now that we have all the UI components in place, we can create our main controller:</p>
 
-<pre>$ rails generate controller Main index
+<pre class="lang:default decode:true">rails generate controller Main index
 </pre>
 
 
 <p>Add the root folder to the routes.rb file to redirect to the main controller:</p>
 
-<pre>root :to =&gt; 'main#index'
-</pre>
+<figure class='code'><figcaption><span>app/config/routes.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="n">root</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s1">&#39;main#index&#39;</span>
+</span><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Run the rails server and make sure everything is working smoothly.</p>
@@ -215,9 +222,8 @@
 
 <p>We can test out our folder structure by creating basic controller for the main view app:</p>
 
-<p><code>app/assets/javascripts/controllers/MainCtrl.js.coffee</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>app/assets/javascripts/controllers/MainCtrl.js.coffee</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -225,7 +231,7 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="vi">@MainCtrl = </span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="vi">@MainCtrl = </span><span class="nf">($scope) -&gt;</span>
 </span><span class='line'>  <span class="nv">$scope.data = </span>
 </span><span class='line'>      <span class="nv">posts: </span><span class="p">[</span>
 </span><span class='line'>          <span class="p">{</span> <span class="nv">content: </span><span class="s">&quot;hello world!&quot;</span><span class="p">},</span>
@@ -239,8 +245,6 @@
 <p>If the code above looks strange to you, it&rsquo;s because we&rsquo;re using Coffeescript in place of JavaScript. CoffeeScript is just syntactic sugar that compiles into JavaScript and is included by default in Rails 4.0 applications. It bears resemblence to the Ruby language so it&rsquo;s easy for a Ruby/Python/Haskell enthusiast to pick up, and it integrates nicely with the rest of the Rails pipeline.</p>
 
 <p>I&rsquo;m using some placeholder data for now while we get the app up and running. The view for this controller, which is also the main view, will look like this:</p>
-
-<p><code>app/assets/views/main/index.html</code></p>
 
 <figure class='code'><figcaption><span>app/assets/views/main/index.html </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -262,9 +266,8 @@
 
 <p>We also want to create the module that will be our main application module, which will we declare in our javascripts folder:</p>
 
-<p><code>app/assets/javascripts/main.js.coffee</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>app/assets/javascripts/main.js.coffee </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -283,9 +286,8 @@
 
 <p>Our main application module is named &lsquo;Miner&rsquo;. Now we need to specift the <code>ng-app</code> directive in our main application template:</p>
 
-<p><code>app/views/layout/application.html.erb</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>app/views/layout/application.html.erb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
