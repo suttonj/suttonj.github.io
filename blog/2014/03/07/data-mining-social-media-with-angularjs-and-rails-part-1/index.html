@@ -129,8 +129,14 @@
 
 <p>To provide a quick and powerful UI for us to work with, we&rsquo;ll use Bootstrap; to do that, add the Bootstrap gem to your Gemfile, and include Bootstrap in the application.css file:</p>
 
-<pre class="lang:default decode:true ">gem 'bootstrap-sass'
-</pre>
+<figure class='code'><figcaption><span>Gemfile</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="nt">gem</span> <span class="s1">&#39;bootstrap-sass&#39;</span>
+</span><span class='line'><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p><code>app/assets/stylesheets/application.css</code></p>
@@ -206,8 +212,9 @@
 
 <p>If you want to know more about how to structure your directory for app growth and scaling, as well as general styling guidelines for Angular, you can <a href="https://github.com/mgechev/angularjs-style-guide"> read this informative guide on github.</a></p>
 
-<p>We can test out our folder structure by creating basic controller for the main view app:
-<code>app/assets/javascripts/controllers/MainCtrl.js.coffee</code></p>
+<p>We can test out our folder structure by creating basic controller for the main view app:</p>
+
+<p><code>app/assets/javascripts/controllers/MainCtrl.js.coffee</code></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -230,10 +237,12 @@
 
 <p>If the code above looks strange to you, it&rsquo;s because we&rsquo;re using Coffeescript in place of JavaScript. CoffeeScript is just syntactic sugar that compiles into JavaScript and is included by default in Rails 4.0 applications. It bears resemblence to the Ruby language so it&rsquo;s easy for a Ruby/Python/Haskell enthusiast to pick up, and it integrates nicely with the rest of the Rails pipeline.</p>
 
-<p>I&rsquo;m using some placeholder data for now while we get the app up and running. The view for this controller, which is also the main view, will look like this:
-<code>app/assets/views/main/index.html</code></p>
+<p>I&rsquo;m using some placeholder data for now while we get the app up and running. The view for this controller, which is also the main view, will look like this:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><code>app/assets/views/main/index.html</code></p>
+
+<figure class='code'><figcaption><span>app/assets/views/main/index.html </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -252,7 +261,7 @@
 
 <p>We also want to create the module that will be our main application module, which will we declare in our javascripts folder:</p>
 
-<p><strong>app/assets/javascripts/main.js.coffee</strong></p>
+<p><code>app/assets/javascripts/main.js.coffee</code></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
