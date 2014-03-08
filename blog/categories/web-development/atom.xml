@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | Jeremy Sutton - Developer and Engineer]]></title>
   <link href="http://suttonj.github.io/blog/categories/web-development/atom.xml" rel="self"/>
   <link href="http://suttonj.github.io/"/>
-  <updated>2014-03-08T00:53:07-05:00</updated>
+  <updated>2014-03-08T00:56:19-05:00</updated>
   <id>http://suttonj.github.io/</id>
   <author>
     <name><![CDATA[Jeremy S Sutton]]></name>
@@ -288,8 +288,6 @@ Run the rails server and make sure everything is working smoothly.</p>
 So far, we&rsquo;ve set up our Rails app, created our Angular module, and implemented a view and a controller for the main page. This will provide the base for our application.</p>
 
 <p>In Part 2 of this series, we will implement routing in Angular and create an API for accessing social media.</p>
-
-<p>Feel free to leave me any comments if you need help or have any suggestions!</p>
 ]]></content>
   </entry>
   
