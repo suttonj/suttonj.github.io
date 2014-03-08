@@ -4,7 +4,7 @@ layout: default
 
 <div>
 <article role="article">
-  {% if page.title %}
+  {% if page.header %}
   <header>
     <h1 class="entry-title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
     {% if page.date %}<p class="meta">{% include post/date.html %}{{ time }}</p>{% endif %}
@@ -40,5 +40,3 @@ layout: default
   {% endif %}
 </aside>
 {% endunless %}
-
-oh hai 2

@@ -157,6 +157,7 @@ article {
 
     .social-icon-list {
       margin-top: 22px;
+      margin-left: 220px;
     }
   }
 }
@@ -188,6 +189,39 @@ article {
 
 .all-posts {
   margin-bottom: 30px;
+}
+
+.projects {
+  margin-bottom: 30px;  
+  margin-top: 20px;
+}
+
+.project-list {
+  background-color: white;
+  padding-top: 60px;
+
+  article {
+    padding-bottom: 30px;
+
+    .h5 > a {
+      font-size: 14px;
+    }
+
+    h2 > a {
+      color: black;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.2;
+    }
+
+    p {
+      color: #666665;
+      font-weight: 300;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+  }
 }
 
 #footer {
