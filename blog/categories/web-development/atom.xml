@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | Jeremy Sutton - Developer and Engineer]]></title>
   <link href="http://suttonj.github.io/blog/categories/web-development/atom.xml" rel="self"/>
   <link href="http://suttonj.github.io/"/>
-  <updated>2014-03-08T00:39:16-05:00</updated>
+  <updated>2014-03-08T00:40:05-05:00</updated>
   <id>http://suttonj.github.io/</id>
   <author>
     <name><![CDATA[Jeremy S Sutton]]></name>
@@ -79,8 +79,8 @@
 </span><span class='line'><span class="o">&amp;</span><span class="nt">hellip</span><span class="o">;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p><code>app/assets/stylesheets/application.css</code>
-<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/stylesheets/application.css</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
