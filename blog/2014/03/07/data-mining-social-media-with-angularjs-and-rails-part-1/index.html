@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Data Mining Social Media With AngularJS and Rails - Part 1 - Jeremy Sutton - Developer and Engineer</title>
+  <meta name="author" content="Jeremy S Sutton">
+
+  
+  <meta name="description" content="Data Mining Social Media With AngularJS and Rails - Part 1 written March 7, 2014 in Web Development AngularJS has seen a steady rise in popularity &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jeremyssutton.com/blog/2014/03/07/data-mining-social-media-with-angularjs-and-rails-part-1">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Jeremy Sutton - Developer and Engineer" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-48571772-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+  <body>
+    <a href="/" class="home-icon">
+      <img src="/images/home.png"/>
+    </a>
+
+    <article role="article" class="full-single-article">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h1>Data Mining Social Media With AngularJS and Rails - Part 1</h1>
+        <div class="meta">
+          written 
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2014-03-07T23:24:25-05:00" pubdate data-updated="true">March 7, 2014</time> in 
+          
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+  
+</span>
+
+
+        </div>
+        <p>AngularJS has seen a steady rise in popularity over the past year, and for good reason. Many Angular devs like to use Node.js as the back-end to keep the stack all one language; however, there are plenty of Rails users that want to get in on the fun without changing their whole stack.</p>
+
+<p>This series of posts will show you how to set up a simple data mining web app aimed at social media, using AngularJS on the front-end and Ruby on Rails for the back-end.</p>
+
+<!--more-->
+
+
+<p><strong>Why use AngularJS and Rails?</strong></p>
+
+<p>There are many reasons why AngularJS has shot up the ranks of JavaScript frameworks:</p>
+
+<ul>
+    <li>it&#8217;s backed by Google, and as such has access to the immense vault of talent and resources that the tech behemoth has,</li>
+    <li>it&#8217;s a top-tier MVC framework well-suited for single-page web applications based in HTML,</li>
+    <li>it enables mass-scale parallel development,</li>
+    <li>it helps easily manage the state of the application,</li>
+    <li>just to name a few&#8230;for a more in-depth explanations of the benefits of using AngularJS, read <a title="10 Reasons Web Developers Should Learn Angular" href="http://java.dzone.com/articles/10-reasons-web-developers">this article.</a></li>
+</ul>
+
+
+<p>Single page applications are becoming prevalent on the web and in the app stores, and Angular has shown to be one of the best front-end frameworks to get one up and running quickly and easily.</p>
+
+<p>We&rsquo;re going to use Ruby on Rails on the back-end to serve the data and perform the data-mining; Rails is well-established and there&rsquo;s already tons of documentation on the web, so it should be easy to pick up for anyone who isn&rsquo;t familiar. Rails is especially popular among start-ups and smaller companies in the software industry, so it&rsquo;s useful to have that in your skill set. Not to mention, Rails makes it incredibly fast and easy to get a working application up and running.</p>
+
+<p>While both Rails and Angular have plenty of documentation to accompany them, there isn&rsquo;t much information on how to integrate the two pipelines. I&rsquo;ll start off by showing you how to set up the two frameworks to seamlessly work together. This tutorial assumes that you have a basic knowledge of Rails.</p>
+
+<p>First off, we&rsquo;ll create our new project. From your working directory:</p>
+
+<pre class="lang:default decode:true ">$ rails new socialminer --database=postgresql --skip-test-unit</pre>
+
+
+<p>After the project files are created, configure your Postgres database by editing the /config/database.yml file. If you&rsquo;re migrating to Postgres from another type of database, <a title="" href="http://railscasts.com/episodes/342-migrating-to-postgresql">this RailsCast</a> may help.</p>
+
+<p>Once the configuration is set, create the database:</p>
+
+<pre class="lang:default decode:true ">$ bundle exec rake db:create</pre>
+
+
+<p>Run the server to check that everything is working.</p>
+
+<p><strong>Adding the AngularJS framework</strong></p>
+
+<p><i><b>Note:</b> If you have Turbolinks enabled in your Rails app, disable it (delete all references to it). It will conflict with Angular.</i></p>
+
+<p>Integrating AngularJS with your Rails app is pretty straight-forward and easy. Download the latest version of AngularJS from <a href="http://angularjs.org/">the website.</a></p>
+
+<p>We&rsquo;re also going to add Underscore.js to the mix too, because it provides some valuable functionality to JavaScript that&rsquo;ll make things easier for us. Download Underscore.js from <a href="http://underscorejs.org/"> the website.</a></p>
+
+<p>Unzip both downloads and add all of the javascript files to the <code>vendor/assets/javascripts</code> folder.</p>
+
+<p>To provide a quick and powerful UI for us to work with, we&rsquo;ll use Bootstrap; to do that, add the Bootstrap gem to your Gemfile, and include Bootstrap in the application.css file:</p>
+
+<figure class='code'><figcaption><span>Gemfile</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="nt">gem</span> <span class="s1">&#39;bootstrap-sass&#39;</span>
+</span><span class='line'><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/assets/stylesheets/application.css</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">...</span>
+</span><span class='line'> <span class="o">*=</span> <span class="nt">require_self</span>
+</span><span class='line'> <span class="o">*=</span> <span class="nt">require_tree</span> <span class="o">.</span>
+</span><span class='line'> <span class="o">*=</span> <span class="nt">require</span> <span class="nt">bootstrap</span>
+</span><span class='line'> <span class="o">*/</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@import</span> <span class="s2">&quot;bootstrap&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Head over to the <code>app/assets/javascripts</code> folder and add Underscore.js, Angular, and Bootstrap to the Sprockets declarations in the <code>application.js</code> file:</p>
+
+<figure class='code'><figcaption><span>app/assets/javascripts/application.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="c1">//= require jquery</span>
+</span><span class='line'><span class="c1">//= require jquery_ujs</span>
+</span><span class='line'><span class="c1">//= require underscore</span>
+</span><span class='line'><span class="c1">//= require angular</span>
+</span><span class='line'><span class="c1">//= require bootstrap</span>
+</span><span class='line'><span class="p">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Update your gems to add Bootstrap to the pipeline:</p>
+
+<pre>$ bundle install</pre>
+
+
+<p>Now that we have all the UI components in place, we can create our main controller:</p>
+
+<pre>$ rails generate controller Main index</pre>
+
+
+<p>Add the root folder to the routes.rb file to redirect to the main controller:</p>
+
+<figure class='code'><figcaption><span>app/config/routes.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="n">root</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s1">&#39;main#index&#39;</span>
+</span><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Run the rails server and make sure everything is working smoothly.</p>
+
+<p><strong>Setting up Angular</strong></p>
+
+<p>In order to properly use the Angular framework, we have to create a simple directory structure for our Angular files to reside in. How this structure is implemented is up to you and depends on how complex your app will be; the directory structure is important for maintaining and managing your app as it grows.</p>
+
+<p>In this tutorial, we&rsquo;ll use the generally accepted structure of having folders for services, filters, controllers, and directives.</p>
+
+<p>Your folder structure should look like this:</p>
+
+<p>
+<img src="http://i.imgur.com/5juLUo2.png" alt="Javascript directory structure" />
+</p>
+
+
+<p>If you want to know more about how to structure your directory for app growth and scaling, as well as general styling guidelines for Angular, you can <a href="https://github.com/mgechev/angularjs-style-guide"> read this informative guide on github.</a></p>
+
+<p>We can test out our folder structure by creating basic controller for the main view app:</p>
+
+<figure class='code'><figcaption><span>app/assets/javascripts/controllers/MainCtrl.js.coffee</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="vi">@MainCtrl = </span><span class="nf">($scope) -&gt;</span>
+</span><span class='line'>  <span class="nv">$scope.data = </span>
+</span><span class='line'>      <span class="nv">posts: </span><span class="p">[</span>
+</span><span class='line'>          <span class="p">{</span> <span class="nv">content: </span><span class="s">&quot;hello world!&quot;</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span> <span class="nv">content: </span><span class="s">&quot;123 test&quot;</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="vi">@MainCtrl.$inject = </span><span class="p">[</span><span class="s">&#39;$scope&#39;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If the code above looks strange to you, it&rsquo;s because we&rsquo;re using Coffeescript in place of JavaScript. CoffeeScript is just syntactic sugar that compiles into JavaScript and is included by default in Rails 4.0 applications. It bears resemblence to the Ruby language so it&rsquo;s easy for a Ruby/Python/Haskell enthusiast to pick up, and it integrates nicely with the rest of the Rails pipeline.</p>
+
+<p>I&rsquo;m using some placeholder data for now while we get the app up and running. The view for this controller, which is also the main view, will look like this:</p>
+
+<figure class='code'><figcaption><span>app/assets/views/main/index.html </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&#39;text-center&#39;</span><span class="nt">&gt;</span>Social Miner AngularJS+Rails App<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span> <span class="na">ng-controller=</span><span class="s">&quot;MainCtrl&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&quot;text-center&quot;</span><span class="err">&amp;</span><span class="na">gt</span><span class="err">;</span><span class="na">My</span> <span class="na">blog</span><span class="err">&lt;/</span><span class="na">h1</span><span class="nt">&gt;</span>
+</span><span class='line'> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span> <span class="na">ng-repeat=</span><span class="s">&quot;post in data.posts&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;p&gt;&lt;/p&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We also want to create the module that will be our main application module, which will we declare in our javascripts folder:</p>
+
+<figure class='code'><figcaption><span>app/assets/javascripts/main.js.coffee </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1">#= require_self</span>
+</span><span class='line'><span class="c1">#= require_tree ./controllers</span>
+</span><span class='line'><span class="c1">#= require_tree ./directives</span>
+</span><span class='line'><span class="c1">#= require_tree ./filters</span>
+</span><span class='line'><span class="c1">#= require_tree ./services</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">Miner = </span><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s">&#39;Miner&#39;</span><span class="p">,</span> <span class="p">[])</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Our main application module is named &lsquo;Miner&rsquo;. Now we need to specift the <code>ng-app</code> directive in our main application template:</p>
+
+<figure class='code'><figcaption><span>app/views/layout/application.html.erb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">ng-app=</span><span class="s">&quot;Miner&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;title&gt;</span>Socialminer<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="err">&lt;</span>%= stylesheet_link_tag    &quot;application&quot;, :media =&gt; &quot;all&quot; %<span class="err">&amp;</span>&gt;
+</span><span class='line'>  <span class="err">&lt;</span>%= javascript_include_tag &quot;application&quot;, controller_name %&gt;
+</span><span class='line'>  <span class="err">&lt;</span>%= csrf_meta_tags %&gt;
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;</span>%= yield %&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In addition to adding <code>ng-app</code> to the html tag, add <code>controller_name</code> to the javascript include tag in order to include the view&rsquo;s controller.</p>
+
+<p>Now that the Angular framework is set up, we can navigate to our main page at <b><a href="http://localhost:3000">http://localhost:3000</a></b> to confirm that everything works. You should see the index page with the contents of the sample data we provided.</p>
+
+<p><strong>Conclusion</strong>
+So far, we&rsquo;ve set up our Rails app, created our Angular module, and implemented a view and a controller for the main page. This will provide the base for our application.</p>
+
+<p>In Part 2 of this series, we will implement routing in Angular and create an API for accessing social media.</p>
+
+      </div>
+    </div>
+  </div>
+</article>
+
+<hr class="divider-short"/>
+
+<div class="archive-link">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        
+
+        
+          <a class="pull-right" href="/blog/2014/11/09/how-to-turn-your-chromebook-into-a-web-development-machine/" title="Next Post: How To Turn Your Chromebook Into A Web Development Machine">Next: How To Turn Your Chromebook Into A Web Development Machine &raquo;</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+    <footer id="footer" class="her-row">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-1">
+  <a href="/"><h4>Home</h4></a>
+</div>
+
+<div class="col-md-2">
+  <div class="social-icon-list">
+    <a title="LinkedIn" href="https://linkedin.com/in/jeremyssutton"><img src="/images/glyphicons_social_17_linked_in.png"/></a>
+    <a title="GitHub" href="https://github.com/suttonj"><img src="/images/glyphicons_social_21_github.png"/></a>
+    <a title="Twitter" href="https://twitter.com/_jsutton_"><img src="/images/glyphicons_social_31_twitter.png"/></a>
+    <a title="E-Mail" href="mailto:jeremy.s.sutton@gmail.com"><img src="/images/glyphicons_social_39_e-mail.png"/></a>
+  </div>
+</div>
+
+<div class="pull-right">
+  <h4>Powered by <a href="http://octopress.org/">Octopress</a>. Designed by <a href="http://AdrianArtiles.com">Adrian Artiles</a>.</h4>
+</div>
+
+
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
