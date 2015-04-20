@@ -10,7 +10,7 @@
 
   
   <meta name="description" content="I&#8217;m Jeremy Sutton
-developer, engineer, and hacker living in Boston about me I&#8217;m a full-stack developer from Pittsburgh, currently &hellip;">
+developer, engineer, and growth hacker about me I&#8217;m a full-stack developer in Boston, primarily focused on web app &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -51,7 +51,7 @@ developer, engineer, and hacker living in Boston about me I&#8217;m a full-stack
     <div class="home-page">
   <div class="hero">
     <h1>I&#8217;m Jeremy Sutton</h1>
-<p>developer, engineer, and hacker living in Boston</p>
+<p>developer, engineer, and growth hacker</p>
 
   </div>
 
@@ -61,12 +61,12 @@ developer, engineer, and hacker living in Boston about me I&#8217;m a full-stack
         <div class="row">
           <div id="about-me" class="col-md-offset-3 col-md-6">
   <h4>about me</h4>
-  <p>I&#8217;m a full-stack developer from Pittsburgh, currently residing in Cambridge, Mass. I&#8217;m primarily interested in web app development, mobile development, machine learning, and app security.</p>
-  <p>Here I share my thoughts on software development, technology, and personal wellness. You can find a list of some of <a href="/projects">my side projects here.</a></p>
+  <p>I&#8217;m a full-stack developer in Boston, primarily focused on web app development and growth hacking.</p>
+  <p>Here I share my thoughts on software development, product growth, technology, and personal wellness. You can find a list of some of <a href="/projects">my side projects here.</a></p>
   <div class="social-icon-list">
   	<a title="LinkedIn" href="https://linkedin.com/in/jeremyssutton"><img src="/images/glyphicons_social_17_linked_in.png"/></a>
     <a title="GitHub" href="https://github.com/suttonj"><img src="/images/glyphicons_social_21_github.png"/></a>
-    <a title="Twitter" href="https://twitter.com/_jsutton_"><img src="/images/glyphicons_social_31_twitter.png"/></a>
+    <a title="Twitter" href="https://twitter.com/jeremys_sutton"><img src="/images/glyphicons_social_31_twitter.png"/></a>
     <a title="E-Mail" href="mailto:jeremy.s.sutton@gmail.com"><img src="/images/glyphicons_social_39_e-mail.png"/></a>
   </div>
 </div>
@@ -169,11 +169,13 @@ We&rsquo;ll also need to create the global data directory that MongoDB writes to
 <code> mkdir -p /data/db
 chmod 777 /data/*
  </code>
-Now, start the mongodb server: <code>cd /usr/lib/mongodb/mongodb-linux-i686-2.4.6/bin/
+Now, start the mongodb server:
+<code>cd /usr/lib/mongodb/mongodb-linux-i686-2.4.6/bin/
 ./mongod &amp;
 </code>
 You can check to see if the server is running correctly by going to <a href="http://localhost:28017/"><a href="http://localhost:28017/">http://localhost:28017/</a></a> in your browser.
-Note: If you have a problem running mongod due to a libstdc++ library error, download and install the dependency: <code>sudo apt-get install lib32stdc++6</code>
+Note: If you have a problem running mongod due to a libstdc++ library error, download and install the dependency:
+<code>sudo apt-get install lib32stdc++6</code>
 </p></p>
 
 
@@ -184,13 +186,13 @@ Note: If you have a problem running mongod due to a libstdc++ library error, dow
 <code></p></p>
 
 <p><pre><code>cd workspace
-</code></pre></p>
-
-<p><p>sudo chown -R <code>whoami</code> <code>npm -g bin</code>
+sudo chown -R <code>whoami</code> <code>npm -g bin</code>
 npm config set strict-ssl false
 npm install -g yo
 npm install -g generator-angular-fullstack
-</code>
+</code></pre></p>
+
+<p><p></code>
 At this point, we should have a MongoDB instance running in the background, the latest version of NodeJS installed, and a Yeoman generator ready to use. We can go ahead and run the Yeoman generator, which will create a boilerplate project and allow you to configure it along the way.
 <code> yo angular-fullstack</code></p></p>
 

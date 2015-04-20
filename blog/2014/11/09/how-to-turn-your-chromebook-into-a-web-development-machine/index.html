@@ -143,11 +143,13 @@ We&rsquo;ll also need to create the global data directory that MongoDB writes to
 <code> mkdir -p /data/db
 chmod 777 /data/*
  </code>
-Now, start the mongodb server: <code>cd /usr/lib/mongodb/mongodb-linux-i686-2.4.6/bin/
+Now, start the mongodb server:
+<code>cd /usr/lib/mongodb/mongodb-linux-i686-2.4.6/bin/
 ./mongod &amp;
 </code>
 You can check to see if the server is running correctly by going to <a href="http://localhost:28017/"><a href="http://localhost:28017/">http://localhost:28017/</a></a> in your browser.
-Note: If you have a problem running mongod due to a libstdc++ library error, download and install the dependency: <code>sudo apt-get install lib32stdc++6</code>
+Note: If you have a problem running mongod due to a libstdc++ library error, download and install the dependency:
+<code>sudo apt-get install lib32stdc++6</code>
 </p></p>
 
 <p><h3>Set up Yeoman and generate boilerplate</h3>
@@ -155,13 +157,13 @@ Note: If you have a problem running mongod due to a libstdc++ library error, dow
 <code></p>
 
 <pre><code>cd workspace
-</code></pre>
-
-<p>sudo chown -R <code>whoami</code> <code>npm -g bin</code>
+sudo chown -R `whoami` `npm -g bin`
 npm config set strict-ssl false
 npm install -g yo
 npm install -g generator-angular-fullstack
-</code>
+</code></pre>
+
+<p></code>
 At this point, we should have a MongoDB instance running in the background, the latest version of NodeJS installed, and a Yeoman generator ready to use. We can go ahead and run the Yeoman generator, which will create a boilerplate project and allow you to configure it along the way.
 <code> yo angular-fullstack</code></p>
 
