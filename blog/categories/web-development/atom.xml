@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Web Development | Jeremy Sutton - Developer and Engineer]]></title>
+  <link href="http://jeremyssutton.com/blog/categories/web-development/atom.xml" rel="self"/>
+  <link href="http://jeremyssutton.com/"/>
+  <updated>2015-08-09T17:37:05-04:00</updated>
+  <id>http://jeremyssutton.com/</id>
+  <author>
+    <name><![CDATA[Jeremy S Sutton]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Turn Your Chromebook Into a Web Development Machine]]></title>
+    <link href="http://jeremyssutton.com/blog/2014/11/09/how-to-turn-your-chromebook-into-a-web-development-machine/"/>
+    <updated>2014-11-09T14:09:57-05:00</updated>
+    <id>http://jeremyssutton.com/blog/2014/11/09/how-to-turn-your-chromebook-into-a-web-development-machine</id>
+    <content type="html"><![CDATA[<p>Chromebooks are known to be inexpensive, lightweight laptops, perfect for traveling and using cloud-based apps or browsing the web. They aren't, however, too popular among developers--yet. In this post, I'll demonstrate how to set up a Chromebook for all of your web development needs, transforming it from a cheap cloud client to a versatile development machine.</p>
+
+
+
+
+<p>This tutorial is based on an Acer C720 Chromebook, but should work as well with other Intel-based Chromebooks. </p>
+
+
+
+
+<p><h2> Running Linux + ChromeOS using Crouton <h2>
+<p>The simplest way to set up your Chromebook for web development would be to use a cloud-based development environment like Nitrous.io and simply log into it from the Chrome browser. But that would be no fun. </p></p>
+
+<p><p><a href="https://github.com/dnschneid/crouton">Crouton</a> makes it incredibly easy to download, install, and run Linux (Ubuntu by default) from within ChromeOS. This way, you can easily switch between ChromeOS and Ubuntu. To set up your Chromebook this way, you just have to turn Development Mode on, download Crouton, and run a few commands from the crosh terminal. An easy-to-follow tutorial on that can be found <a href="http://lifehacker.com/how-to-install-linux-on-a-chromebook-and-unlock-its-ful-509039343">here</a>.</p></p>
+
+<p><h2> Set up Ubuntu for Full-Stack Web Development with Yeoman<h2>
+<p>After setting up Ubuntu on your Chromebook through Crouton, you  should have a functioning and clean version of Ubuntu. You can switch between ChromeOS and Ubuntu using (Shift+Alt+Back Arrow) and (Shift+Alt+Forward Arrow, Shift+Alt+Reload). Now, if only there was a way to have a full stack web development environment up and running quickly with minimal set up. Luckily, there&rsquo;s Yeoman.</p></p>
+
+<p><p>Yeoman is an amazing tool for scaffolding, with a large community that has created many different boilerplate generators for whatever development stack you might need. One of the most popular types of generators are MEAN stack generators. This stack consists of MongoDB for your database/storage, Node+Express for your back-end web server, and AngularJS as your front-end framework. In this article, I&rsquo;ll be using generator-angular-fullstack, but there are several other MEAN stack generators on the Yeoman Community Generators page, as well as boilerplate generators for many other types of development stacks.</p></p>
+
+<p><p>Before setting up Yeoman, we&rsquo;ll begin with updating Ubuntu and installing our favorite code editors and browsers. We&rsquo;ll use Sublime Text 3 (since that&rsquo;s my favorite editor) but you can obviously use whatever you might be comfortable with (Vim? Emacs?). Also, we&rsquo;ll install Firefox since we can use Chrome in ChromeOS already&mdash;it&rsquo;ll be helpful to have at least 2 different browsers to test on.</p></p>
+
+<p><p>Update/Upgrade Ubuntu:</p>
+
+<pre><code>&lt;code&gt;sudo apt-get update &amp;&amp; sudo apt-get upgrade&lt;/code&gt;
+</code></pre>
+
+<p>For Sublime Text 3 and Firefox, we&rsquo;ll have to add their repositories to Aptitude, and then update before we can install the editor.
+<code></p>
+
+<pre><code>sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo add-apt-repository ppa:mozillateam/firefox-next 
+sudo apt-get update
+sudo apt-get install sublime-text
+sudo apt-et install firefox
+</code></pre>
+
+<p></code>
+Note: if you have a problem with the add-apt-repository command, install the <code>software-properties-common</code> package.</p>
+
+<p>Now, install other necessary packages for development and general tools, such as Git and curl.
+<code>sudo apt-get install git build-essential zip nano curl</code>
+</p></p>
+
+<p><h2>Install NodeJS and MongoDB</h2>
+<p>To install NodeJS and it&rsquo;s package manager npm, we&rsquo;ll add the NodeSource to the APT sources with these commands:
+<code>curl -sL <a href="https://deb.nodesource.com/setup">https://deb.nodesource.com/setup</a> | sudo bash &ndash;
+sudo apt-get install nodejs
+</code></p>
+<p>I had some issues installing MongoDB using the method on the official docs, not sure if it&rsquo;s a problem for other crouton users; the following method was the easiest way for me to get MongoDB running.</p>
+
+<p>First, download the tar-zipped mongo package from <a href="http://fastdl.mongodb.org/linux/mongodb-linux-i686-2.6.4.tgz">here</a>.
+Then, unzip the tar file and move the folder to /usr/lib.
+<code></p>
+
+<pre><code>cd Downloads/
+tar xzf mongodb-linux-i686-2.6.4.tgz
+sudo mkdir /usr/lib/mongodb
+sudo mv mongodb-linux-i686-2.6.4 /usr/lib/mongodb/
+</code></pre>
+
+<p></code>
+We&rsquo;ll also need to create the global data directory that MongoDB writes to, and set permissions accordingly.
+<code> mkdir -p /data/db
+chmod 777 /data/*
+ </code>
+Now, start the mongodb server: <code>cd /usr/lib/mongodb/mongodb-linux-i686-2.4.6/bin/
+./mongod &amp;
+</code>
+You can check to see if the server is running correctly by going to <a href="http://localhost:28017/"><a href="http://localhost:28017/">http://localhost:28017/</a></a> in your browser.
+Note: If you have a problem running mongod due to a libstdc++ library error, download and install the dependency: <code>sudo apt-get install lib32stdc++6</code>
+</p></p>
+
+<p><h3>Set up Yeoman and generate boilerplate</h3>
+<p>Make a directory for your workspace, and install Yeoman along with the generator that you&rsquo;d like to use. We also have to set up permissions for npm so that it can access system directories that it needs without sudo.
+<code></p>
+
+<pre><code>cd workspace
+</code></pre>
+
+<p>sudo chown -R <code>whoami</code> <code>npm -g bin</code>
+npm config set strict-ssl false
+npm install -g yo
+npm install -g generator-angular-fullstack
+</code>
+At this point, we should have a MongoDB instance running in the background, the latest version of NodeJS installed, and a Yeoman generator ready to use. We can go ahead and run the Yeoman generator, which will create a boilerplate project and allow you to configure it along the way.
+<code> yo angular-fullstack</code></p>
+
+<p>That&rsquo;s all there is to it! Your inexpensive Chromebook is now a full on development machine, ready to make the next big web app. If you need further help with creating a MEAN stack web app, there are plenty of great tutorials out there!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Data Mining Social Media With AngularJS and Rails - Part 1]]></title>
+    <link href="http://jeremyssutton.com/blog/2014/03/07/data-mining-social-media-with-angularjs-and-rails-part-1/"/>
+    <updated>2014-03-07T23:24:25-05:00</updated>
+    <id>http://jeremyssutton.com/blog/2014/03/07/data-mining-social-media-with-angularjs-and-rails-part-1</id>
+    <content type="html"><![CDATA[<p>AngularJS has seen a steady rise in popularity over the past year, and for good reason. Many Angular devs like to use Node.js as the back-end to keep the stack all one language; however, there are plenty of Rails users that want to get in on the fun without changing their whole stack.</p>
+
+<p>This series of posts will show you how to set up a simple data mining web app aimed at social media, using AngularJS on the front-end and Ruby on Rails for the back-end.</p>
+
+<!--more-->
+
+
+<p><strong>Why use AngularJS and Rails?</strong></p>
+
+<p>There are many reasons why AngularJS has shot up the ranks of JavaScript frameworks:</p>
+
+<ul>
+    <li>it's backed by Google, and as such has access to the immense vault of talent and resources that the tech behemoth has,</li>
+    <li>it's a top-tier MVC framework well-suited for single-page web applications based in HTML,</li>
+    <li>it enables mass-scale parallel development,</li>
+    <li>it helps easily manage the state of the application,</li>
+    <li>just to name a few...for a more in-depth explanations of the benefits of using AngularJS, read <a title="10 Reasons Web Developers Should Learn Angular" href="http://java.dzone.com/articles/10-reasons-web-developers">this article.</a></li>
+</ul>
+
+
+<p>Single page applications are becoming prevalent on the web and in the app stores, and Angular has shown to be one of the best front-end frameworks to get one up and running quickly and easily.</p>
+
+<p>We&rsquo;re going to use Ruby on Rails on the back-end to serve the data and perform the data-mining; Rails is well-established and there&rsquo;s already tons of documentation on the web, so it should be easy to pick up for anyone who isn&rsquo;t familiar. Rails is especially popular among start-ups and smaller companies in the software industry, so it&rsquo;s useful to have that in your skill set. Not to mention, Rails makes it incredibly fast and easy to get a working application up and running.</p>
+
+<p>While both Rails and Angular have plenty of documentation to accompany them, there isn&rsquo;t much information on how to integrate the two pipelines. I&rsquo;ll start off by showing you how to set up the two frameworks to seamlessly work together. This tutorial assumes that you have a basic knowledge of Rails.</p>
+
+<p>First off, we&rsquo;ll create our new project. From your working directory:</p>
+
+<pre class="lang:default decode:true ">$ rails new socialminer --database=postgresql --skip-test-unit</pre>
+
+
+<p>After the project files are created, configure your Postgres database by editing the /config/database.yml file. If you&rsquo;re migrating to Postgres from another type of database, <a title="" href="http://railscasts.com/episodes/342-migrating-to-postgresql">this RailsCast</a> may help.</p>
+
+<p>Once the configuration is set, create the database:</p>
+
+<pre class="lang:default decode:true ">$ bundle exec rake db:create</pre>
+
+
+<p>Run the server to check that everything is working.</p>
+
+<p><strong>Adding the AngularJS framework</strong></p>
+
+<p><i><b>Note:</b> If you have Turbolinks enabled in your Rails app, disable it (delete all references to it). It will conflict with Angular.</i></p>
+
+<p>Integrating AngularJS with your Rails app is pretty straight-forward and easy. Download the latest version of AngularJS from <a href="http://angularjs.org/">the website.</a></p>
+
+<p>We&rsquo;re also going to add Underscore.js to the mix too, because it provides some valuable functionality to JavaScript that&rsquo;ll make things easier for us. Download Underscore.js from <a href="http://underscorejs.org/"> the website.</a></p>
+
+<p>Unzip both downloads and add all of the javascript files to the <code>vendor/assets/javascripts</code> folder.</p>
+
+<p>To provide a quick and powerful UI for us to work with, we&rsquo;ll use Bootstrap; to do that, add the Bootstrap gem to your Gemfile, and include Bootstrap in the application.css file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Gemfile</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">&amp;</span><span class="nt">hellip</span><span class="o">;</span>
+</span><span class='line'><span class="nt">gem</span> <span class="o">&amp;</span><span class="nt">lsquo</span><span class="o">;</span><span class="nt">bootstrap-sass</span><span class="o">&amp;</span><span class="nt">rsquo</span><span class="o">;</span>
+</span><span class='line'><span class="o">&amp;</span><span class="nt">hellip</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/stylesheets/application.css</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">&amp;</span><span class="nt">hellip</span><span class="o">;</span>
+</span><span class='line'> <span class="o">&lt;</span><span class="nt">em</span><span class="o">&gt;=</span> <span class="nt">require_self</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;=</span> <span class="nt">require_tree</span> <span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;</span><span class="nt">em</span><span class="o">&gt;=</span> <span class="nt">require</span> <span class="nt">bootstrap</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="k">@import</span> <span class="o">&amp;</span><span class="nt">ldquo</span><span class="p">;</span><span class="nt">bootstrap</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;;&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Head over to the <code>app/assets/javascripts</code> folder and add Underscore.js, Angular, and Bootstrap to the Sprockets declarations in the <code>application.js</code> file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/javascripts/application.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;</span>
+</span><span class='line'><span class="c1">//= require jquery</span>
+</span><span class='line'><span class="c1">//= require jquery_ujs</span>
+</span><span class='line'><span class="c1">//= require underscore</span>
+</span><span class='line'><span class="c1">//= require angular</span>
+</span><span class='line'><span class="c1">//= require bootstrap</span>
+</span><span class='line'><span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Update your gems to add Bootstrap to the pipeline:</p>
+
+<pre>$ bundle install</pre>
+
+
+<p>Now that we have all the UI components in place, we can create our main controller:</p>
+
+<pre>$ rails generate controller Main index</pre>
+
+
+<p>Add the root folder to the routes.rb file to redirect to the main controller:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/config/routes.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span>
+</span><span class='line'><span class="n">root</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">main</span><span class="c1">#index&amp;rsquo;</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+Run the rails server and make sure everything is working smoothly.</p>
+
+<p><strong>Setting up Angular</strong></p>
+
+<p>In order to properly use the Angular framework, we have to create a simple directory structure for our Angular files to reside in. How this structure is implemented is up to you and depends on how complex your app will be; the directory structure is important for maintaining and managing your app as it grows.</p>
+
+<p>In this tutorial, we&rsquo;ll use the generally accepted structure of having folders for services, filters, controllers, and directives.</p>
+
+<p>Your folder structure should look like this:</p>
+
+<p>
+<img src="http://i.imgur.com/5juLUo2.png" alt="Javascript directory structure" />
+</p>
+
+
+<p>If you want to know more about how to structure your directory for app growth and scaling, as well as general styling guidelines for Angular, you can <a href="https://github.com/mgechev/angularjs-style-guide"> read this informative guide on github.</a></p>
+
+<p>We can test out our folder structure by creating basic controller for the main view app:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/javascripts/controllers/MainCtrl.js.coffee</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="vi">@MainCtrl = </span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="o">&amp;</span><span class="nx">ndash</span><span class="p">;</span><span class="o">&gt;&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$scope.data = </span>
+</span><span class='line'>    <span class="nv">posts: </span><span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span> <span class="nv">content: </span><span class="s">&quot;hello world!&quot;</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span> <span class="nv">content: </span><span class="s">&quot;123 test&quot;</span><span class="p">}</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="vi">@MainCtrl.$inject = </span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">$scope</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If the code above looks strange to you, it&rsquo;s because we&rsquo;re using Coffeescript in place of JavaScript. CoffeeScript is just syntactic sugar that compiles into JavaScript and is included by default in Rails 4.0 applications. It bears resemblence to the Ruby language so it&rsquo;s easy for a Ruby/Python/Haskell enthusiast to pick up, and it integrates nicely with the rest of the Rails pipeline.</p>
+
+<p>I&rsquo;m using some placeholder data for now while we get the app up and running. The view for this controller, which is also the main view, will look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/views/main/index.html </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&#39;text-center&#39;</span><span class="nt">&gt;</span>Social Miner AngularJS+Rails App<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span> <span class="na">ng-controller=</span><span class="s">&quot;MainCtrl&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&quot;text-center&quot;</span><span class="err">&amp;</span><span class="na">gt</span><span class="err">;</span><span class="na">My</span> <span class="na">blog</span><span class="err">&lt;/</span><span class="na">h1</span><span class="nt">&gt;</span>
+</span><span class='line'> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span> <span class="na">ng-repeat=</span><span class="s">&quot;post in data.posts&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span>  <span class="ni">&amp;lt;</span>p<span class="ni">&amp;gt;&amp;lt;</span>/p<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We also want to create the module that will be our main application module, which will we declare in our javascripts folder:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/javascripts/main.js.coffee </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;=</span> <span class="nx">require_self</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;=</span> <span class="nx">require_tree</span> <span class="p">.</span><span class="o">/</span><span class="nx">controllers</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;=</span> <span class="nx">require_tree</span> <span class="p">.</span><span class="o">/</span><span class="nx">directives</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;=</span> <span class="nx">require_tree</span> <span class="p">.</span><span class="o">/</span><span class="nx">filters</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;=</span> <span class="nx">require_tree</span> <span class="p">.</span><span class="o">/</span><span class="nx">services</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">Miner = </span><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Miner</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="p">[])</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Our main application module is named &lsquo;Miner&rsquo;. Now we need to specift the <code>ng-app</code> directive in our main application template:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/views/layout/application.html.erb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">ng-app=</span><span class="s">&quot;Miner&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;title&gt;</span>Socialminer<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>%= stylesheet_link_tag    <span class="ni">&amp;ldquo;</span>application<span class="ni">&amp;rdquo;</span>, :media =&gt; <span class="ni">&amp;ldquo;</span>all<span class="ni">&amp;rdquo;</span> %<span class="ni">&amp;amp;</span>&gt;
+</span><span class='line'>  <span class="ni">&amp;lt;</span>%= javascript_include_tag <span class="ni">&amp;ldquo;</span>application<span class="ni">&amp;rdquo;</span>, controller_name %&gt;
+</span><span class='line'>  <span class="ni">&amp;lt;</span>%= csrf_meta_tags %&gt;
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span><span class="ni">&amp;lt;</span>%= yield %&gt;<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In addition to adding <code>ng-app</code> to the html tag, add <code>controller_name</code> to the javascript include tag in order to include the view&rsquo;s controller.</p>
+
+<p>Now that the Angular framework is set up, we can navigate to our main page at <b><a href="http://localhost:3000">http://localhost:3000</a></b> to confirm that everything works. You should see the index page with the contents of the sample data we provided.</p>
+
+<p><strong>Conclusion</strong>
+So far, we&rsquo;ve set up our Rails app, created our Angular module, and implemented a view and a controller for the main page. This will provide the base for our application.</p>
+
+<p>In Part 2 of this series, we will implement routing in Angular and create an API for accessing social media.</p>
+]]></content>
+  </entry>
+  
+</feed>
